@@ -1,0 +1,63 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container db-social">
+    <div class="jumbotron jumbotron-fluid"></div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl-11">
+                <div class="widget head-profile has-shadow">
+                    <div class="widget-body pb-0">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-xl-4 col-md-4 d-flex justify-content-lg-start justify-content-md-start justify-content-center">
+                                <ul>
+                                    <li>
+                                        <div class="counter">{{ rooms.count }}</div>
+                                        <div class="heading">Rooms</div>
+                                    </li>
+                                    <li>
+                                        <div class="counter">{{comments.count }}</div>
+                                        <div class="heading">Comments</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xl-4 col-md-4 d-flex justify-content-center">
+                                <div class="image-default">
+                                    <img class="rounded-circle" src="{% static 'path_to_your_image.jpg' %}" alt="Profile Picture">
+                                </div>
+                                <div class="infos">
+                                    <h2>{{ user.username }}</h2>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 d-flex justify-content-lg-end justify-content-md-end justify-content-center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Section -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h4>Recent Activity</h4>
+                    </div>
+                    <div class="widget">
+
+                        <div class="widget-body">
+                            <ul>
+                                {% for activity in activities %}
+                                    <li>{{ activity }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Recent Activity Section -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

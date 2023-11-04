@@ -1,0 +1,25 @@
+
+/* Sidebar navigation styles */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 56px); /* Adjust this value according to your navbar height */
+    overflow-y: auto;
+    background-color: #f8f9fa;
+}
+
+.sidebar-heading {
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+}
+
+.list-group-item {
+    padding: 0.75rem 1rem;
+}
+
+/* Hide collapsed sidebar on smaller screens */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+}

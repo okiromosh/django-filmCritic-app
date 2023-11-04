@@ -1,0 +1,168 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block title %}
+    Film Critic
+{% endblock %}
+
+{% block content %}
+
+    <!-- Three-column layout -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Categories Column (Reduced to 2 columns) -->
+
+            <div class="col-md-2 bg-body-tertiary">
+                <h3>Profile</h3>
+                <div class="container">
+
+                </div>
+                <h3>CATEGORIES</h3>
+                <ul class="list-inline">
+                    {% for cat in category %}
+                        <li class="list-inline-item"><span class="badge badge-warning text-primary">{{ cat.name }}</span></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Feed Column (6 columns) -->
+            <div class="col-md-6">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                        <h3></h3>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <a href="{% url 'create-room'%}" type="button" class="btn btn-primary btn-sm position-relative" >Create Room</a>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Tab navigation -->
+                <ul class="nav nav-tabs mb-1" id="feedTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="movies-tab" data-bs-toggle="tab" href="#movies" role="tab" aria-controls="movies" aria-selected="true">Movies</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="series-tab" data-bs-toggle="tab" href="#series" role="tab" aria-controls="series" aria-selected="false">Series</a>
+                    </li>
+                </ul>
+                <!-- Tab content -->
+                <div class="tab-content" id="feedTabContent">
+                    <div class="tab-pane fade show active" id="movies" role="tabpanel" aria-labelledby="movies-tab">
+
+                        <!-- Movies Feed content goes here -->
+                       {% for room in movies_rooms %}
+                        <!-- Movie Feed Card -->
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-12">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" style="width:50px;" alt="user" class="profile-photo-md">
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="media-body">
+                                                    <h5 class="mt-0"><a href="{% url 'profile' room.host.id %}" class="profile-link">{{ room.host }}</a></h5>
+                                                    <h6 class="mt-0"><a href="" class="profile-link">@{{ room.host }}</a></h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                <small>delete icon</small>
+                                            </div>
+                                        </div>
+                                        <h5 class="card-title"><a href="{% url 'room' room.id %}">{{ room.name }}</a></h5>
+                                        <p class="card-text">{{ room.description }}</p>
+                                        <a href="{% url 'room' room.id %}"><small>comments({{ room.comment_count }})</small></a>
+                                        <p class="card-text text-end">
+                                            <small class="text-muted">
+                                                <br>
+                                                <i class="fa fa-clock-o"></i> {{ room.created | timesince }} ago
+                                            </small>
+                                        </p>
+                                        {% if room.category.all %}
+                                            <span class="card-text badge badge-primary text-secondary">{{ room.category.all|join:", " }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Movie Feed Card -->
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <div class="tab-pane fade" id="series" role="tabpanel" aria-labelledby="series-tab">
+                        <!-- Series Feed content goes here -->
+                        {% for room in series_rooms %}
+                            <!-- Your Series Feed Card -->
+                            <!-- Series Feed Card -->
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-12">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" style="width:50px;" alt="user" class="profile-photo-md">
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="media-body">
+                                                    <h5 class="mt-0"><a href="" class="profile-link">{{ room.host }}</a></h5>
+                                                    <h6 class="mt-0"><a href="" class="profile-link">@{{ room.host }}</a></h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                <small>delete icon</small>
+                                            </div>
+                                        </div>
+                                        <h5 class="card-title"><a href="{% url 'room' room.id %}">{{ room.name }}</a></h5>
+                                        <p class="card-text">{{ room.description }}</p>
+                                        <a href="{% url 'room' room.id %}"><small>comments({{ room.comment_count }})</small></a>
+                                        <p class="card-text text-end">
+                                            <small class="text-muted">
+                                                <br>
+                                                <i class="fa fa-clock-o"></i> {{ room.created | timesince }} ago
+                                            </small>
+                                        </p>
+                                        {% if room.category.all %}
+                                            <span class="card-text badge badge-primary text-secondary">{{ room.category.all|join:", " }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <!-- End of Series Feed Card -->
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Column (4 columns) -->
+
+
+            <div class="col-md-4">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">Activity</h3>
+            <!-- Add your activity section here -->
+            <ul class="list-group list-group-flush">
+                <span class="badge badge-warning text-primary"><h4>rooms</h4></span>
+                {% for activity in room_activities %}
+                    <li class="list-group-item">{{ activity }}</li>
+                {% endfor %}
+                <span class="badge badge-warning text-primary"><h4>comments</h4></span>
+                {% for activity in comment_activities %}
+                    <li class="list-group-item">{{ activity }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        </div>
+    </div>
+{% endblock %}
